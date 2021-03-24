@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+}
+.header{
+    background: grey;
+    padding: 20px;
+    color: white;
+}
+.header-title{
+    margin-top: 0;
+}
+.header-nav{
+    margin: 20px 0;
+}
+.header-nav a {
+    padding: 0 20px;
+    color: inherit;
+}
+.header img{
+    width: 100%;
+    height: auto;
+}
+
+.main{
+    background: lightgrey;
+    padding: 20px;
+}
+.footer{
+    background: grey;
+}
