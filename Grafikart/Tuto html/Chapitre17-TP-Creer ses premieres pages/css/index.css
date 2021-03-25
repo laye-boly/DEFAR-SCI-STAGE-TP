@@ -7,10 +7,14 @@ body{
     color: white;
 }
 .header-title{
-    margin-top: 0;
+    margin: 0;
+    font-style: italic;
+    text-transform: capitalize;
+    
 }
 .header-nav{
     margin: 20px 0;
+    float: right;
 }
 .header-nav a {
     padding: 0 20px;
@@ -28,3 +32,4 @@ body{
 .footer{
     background: grey;
 }
+
