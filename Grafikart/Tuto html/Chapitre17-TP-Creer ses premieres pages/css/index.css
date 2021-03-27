@@ -29,6 +29,19 @@ body{
     background: lightgrey;
     padding: 20px;
 }
+.img-left {
+    float: left;
+    height: 400px;
+    /* display: inline-block; */
+}
+.clear{
+    background-color: #ff0000;
+    clear: both;
+}
+
+/* hr{
+    clear: both;
+} */
 .footer{
     background: grey;
 }
