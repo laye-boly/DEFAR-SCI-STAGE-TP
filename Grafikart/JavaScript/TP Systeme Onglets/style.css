@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+}
+.header {
+    position: relative;
+}
+.nav {
+    height: 50px;
+    background-color: lightgrey;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav a {
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-right: 1px solid black;
+    
+}
+.content{
+    display: none;
+}
+.visible, .active{
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 2px;
+    box-shadow: 10px 5px 5px red;
+}
+
+.visible {
+    display: block;
+}
+.fade {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.in{
+    opacity: 1;
+    transition: opacity 0.3s;
+}
