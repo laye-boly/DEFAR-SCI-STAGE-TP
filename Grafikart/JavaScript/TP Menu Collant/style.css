@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+.topbar {
+    background-color: ghostwhite;
+    height: 30px;
+}
+.menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: darkgrey;
+}
+.menu a { 
+    text-decoration: none;
+}
+.texte {
+    background-color: gainsboro;
+}
+.fixed{
+    position: fixed;
+    top: 0px;
+}
+.content{
+    margin-top: 20px;
+}
+.main{
+    float: left;
+    width: 75%;
+}
+.sidebar{
+    float: right;
+    width: 25%;
+}
