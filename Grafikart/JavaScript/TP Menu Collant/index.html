@@ -27,13 +27,19 @@
             <div class="texte" style="height: 4400px;"></div>
         </div>
         <div class="sidebar">
-            <div data-fixed>
+            <div data-fixed data-offset="80" class="block" data-constraint=".sidebar">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem possimus magnam accusantium facilis eligendi explicabo reiciendis, distinctio ad, optio labore molestiae tempore velit obcaecati autem pariatur atque asperiores nam quo?
 
             </div>
+            &nbsp;
+            <div class="block">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem possimus magnam accusantium facilis eligendi explicabo reiciendis, distinctio ad, optio labore molestiae tempore velit obcaecati autem pariatur atque asperiores nam quo?
+    
+                </div>
         </div>
     </div>
-    
+    <!-- Permet de revenir au flux normal car lees éléments .main et .sidebar sont flottants -->
+    <div style="clear: both;"></div>
 
     <script src="app.js"></script>
 </body>

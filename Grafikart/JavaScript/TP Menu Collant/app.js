@@ -23,29 +23,61 @@
             let fake = document.createElement("div")
             fake.style.width = rect.width + "px"
             fake.style.height = rect.height + "px"
+            /* Quand il s'agit de notre sidebar, on veut le placer à la valeur de son attribut data-offset par rapport
+            au haut de l'écran */
+            let offset = parseInt(elementCollant.getAttribute("data-offset") || 0, 10) // Permet dans le cas ou cest le menu de 
+                                                                        // mettre le offset a 0 car on le décale pas par rapport au de la fenetre
+            
+            // Calcul de la contrainte pour l'element sidebar
+            let constraint = null;
+            if(elementCollant.getAttribute("data-constraint")){
+                constraint = document.querySelector(elementCollant.getAttribute("data-constraint"))
+            }else{
+                constraint = document.body
+            }
+
+            let constraintRect = constraint.getBoundingClientRect()
+            let constraintBottom = constraintRect.top + scrollY() + constraintRect.height - offset - rect.height
 
             // Fonctions
             let onScroll = function(){
                 let hasScrollClass = elementCollant.classList.contains("fixed")
-                if(scrollY() > top && !hasScrollClass){
+                if(scrollY() > constraintBottom && elementCollant.style.position != "absolute"){
+                    // elementCollant.classList.remove("fixed")
+                    elementCollant.style.position = "absolute"
+                    elementCollant.style.bottom = "0"
+                    elementCollant.style.top ="auto"
+                }else if(scrollY() > constraintBottom){
+
+                }else if(scrollY() > top - offset && elementCollant.style.position != "fixed"){
                     elementCollant.classList.add("fixed")
+                    elementCollant.style.position = "fixed"
+                    elementCollant.style.bottom = "auto"
                     // En mettant elementCollant à fixed il perd sa largeur initiale, donc on réaffecte cette largeur initiale
                     elementCollant.style.width = rect.width + "px";
+                    // On decale de offset px par rapport au haut de la fenetre
+                    elementCollant.style.top = offset +"px"
                     elementCollant.parentNode.insertBefore(fake, elementCollant)
                     
-                }else if(scrollY() <  top && hasScrollClass){
+                }else if(scrollY() <  top - offset && elementCollant.style.position != "static"){
                     elementCollant.classList.remove("fixed")
-                    elementCollant.parentNode.removeChild(fake)
-                }elementCollant
+                    elementCollant.style.position = "static"
+                    if(elementCollant.parentNode.contains(fake)){
+                        elementCollant.parentNode.removeChild(fake)
+                    }
+                }
             }
             // Quand on redimension l'écran, notre menu qui est position fixed perd aussi sa longeur, donc il faut corriger
             // cela 
             let onResize = function(){
                 elementCollant.style.width = "auto"
                 elementCollant.classList.remove("fixed")
+                elementCollant.style.position = "static"
                 fake.style.display = "none"
                 rect = elementCollant.getBoundingClientRect();
                 top = rect.top + scrollY()
+                constraintRect = constraint.getBoundingClientRect()
+                constraintBottom = constraintRect.top + scrollY() + constraintRect.height - offset - rect.height
                 fake.style.width = rect.width + "px"
                 fake.style.height = rect.height + "px"
                 fake.style.display = "block"
@@ -54,7 +86,6 @@
             }
             window.addEventListener("scroll", onScroll)
             window.addEventListener("resize", onResize) 
-
         })(elementsCollants[i])
         
     }
