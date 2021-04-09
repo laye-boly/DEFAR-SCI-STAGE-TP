@@ -1,61 +1,69 @@
-const questions = [
-    {
-        question: "Quel est le doctype d'un document HTML5 ?",
-        responses: [
-            {
-                name: "&lt;!DOCTYPE html5&gt;",
-                valid: "true"
-            },
-            {
-                name: "&lt;!DOCTYPE html&gt;",
-                valid: "false"
-            },
-            {
-                name: '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN"&gt;',
-                valid: "false"
-            }
-        ]
-    },
+// const questions = [
+//     {
+//         question: "Quel est le doctype d'un document HTML5 ?",
+//         responses: [
+//             {
+//                 name: "&lt;!DOCTYPE html5&gt;",
+//                 valid: "true"
+//             },
+//             {
+//                 name: "&lt;!DOCTYPE html&gt;",
+//                 valid: "false"
+//             },
+//             {
+//                 name: '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN"&gt;',
+//                 valid: "false"
+//             }
+//         ]
+//     },
 
-    {
-        question: "Quelle est la syntaxe pour déclarer l'encodage des caractères du document en UTF-8 ?",
-        responses: [
-            {
-                name: '&lt;meta encoding="text/html; charset=utf-8"&gt;',
-                valid: "false"
-            },
-            {
-                name: '&lt;meta charset="text/html; UTF-8"&gt;',
-                valid: "false"
-            },
-            {
-                name: '&lt;meta charset="utf-8"&gt;',
-                valid: "true"
-            }
-        ]
-    },
-    {
-        question: "Quelle nouvelle balise de section permet de regrouper un contenu tangentiel au contenu principal du document ?",
-        responses: [
-            {
-                name: '&lt;section id="sidebar"&gt;',
-                valid: "false"
-            },
-            {
-                name: '&lt;sidebar&gt;',
-                valid: "false"
-            },
-            {
-                name: '&lt;aside&gt;',
-                valid: "true"
-            },
-            {
-                name: '&lt;details&gt;',
-                valid: "false"
-            }
-        ]
-    }
-]
+//     {
+//         question: "Quelle est la syntaxe pour déclarer l'encodage des caractères du document en UTF-8 ?",
+//         responses: [
+//             {
+//                 name: '&lt;meta encoding="text/html; charset=utf-8"&gt;',
+//                 valid: "false"
+//             },
+//             {
+//                 name: '&lt;meta charset="text/html; UTF-8"&gt;',
+//                 valid: "false"
+//             },
+//             {
+//                 name: '&lt;meta charset="utf-8"&gt;',
+//                 valid: "true"
+//             }
+//         ]
+//     },
+//     {
+//         question: "Quelle nouvelle balise de section permet de regrouper un contenu tangentiel au contenu principal du document ?",
+//         responses: [
+//             {
+//                 name: '&lt;section id="sidebar"&gt;',
+//                 valid: "false"
+//             },
+//             {
+//                 name: '&lt;sidebar&gt;',
+//                 valid: "false"
+//             },
+//             {
+//                 name: '&lt;aside&gt;',
+//                 valid: "true"
+//             },
+//             {
+//                 name: '&lt;details&gt;',
+//                 valid: "false"
+//             }
+//         ]
+//     }
+// ]
+let questions = null
+fetch("questions.json").
+    then(response => response.json()).
+    then(questionsFromJSONFile => {
+        questions = questionsFromJSONFile
+        displayQuestion(questions)
+    })
+
 const abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const responsesWrapper = document.getElementById("game")
 let indexDisplayedQuestions = []
@@ -158,4 +166,4 @@ const handleResponseChoices = (choices) => {
 //     console.log("hi updategame")
 //     scoreHTMLElement.innerHTML = score
 // }
-displayQuestion(questions)
+// displayQuestion(questions)
