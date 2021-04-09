@@ -1,6 +1,4 @@
 window.addEventListener("load", (e) => {
-    // Récupération de tous les sons à jouer
-    const sounds = document.querySelectorAll(".sound")
     // recuperations des container des sons
     const soundsContainer = document.querySelectorAll(".pads [class^='pad']") 
     // console.log(soundsContainer)
@@ -33,7 +31,7 @@ window.addEventListener("load", (e) => {
         bubble.style.background = color
         visual.appendChild(bubble)
         bubble.style.animation = "jump 1s ease"
-        // Pour ne pas polluer notre DOM, on supprime chaque bulles crée desla fin de son animation
+        // Pour ne pas polluer notre DOM, on supprime chaque bulles crée des la fin de son animation
         bubble.addEventListener("animationend", function(){
             visual.removeChild(bubble)
         })
