@@ -1,21 +1,12 @@
-let questions = null
-fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple").
-    then(response => response.json()).
-    then(APIResponse => {
-        console.log(APIResponse)
-        questions = questionsContructor(APIResponse.results)
-        console.log(questions)
-        
-        displayQuestion(questions)
-    })
-
 const abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const responsesWrapper = document.getElementById("game")
+const loader = document.getElementById("loader")
 let indexDisplayedQuestions = []
 const maxQuestionNumber = 3;
 let numberOfDisplayedQuestion = 1
 let score = 0
 const displayQuestion = (questions) => {
+    
     if(maxQuestionNumber >= numberOfDisplayedQuestion){
         // console.log("diplayed")
         const questionIndex = Math.floor(Math.random() * questions.length)
@@ -70,7 +61,8 @@ const handleResponseChoices = (choices) => {
                setTimeout(() => {
                 responsesWrapper.innerHTML = "" 
                 responsesWrapper.appendChild(hud)
-                displayQuestion(questions)  
+                loader.style.display = "block"
+                getAPIQuestion() 
                 // On met a jour le score et le nbre de question affiché depuis le début du jeu
                 let progressTextHTMLElement = document.getElementById("progressText")
                 progressTextHTMLElement.innerHTML = `Question ${numberOfDisplayedQuestion}/${maxQuestionNumber}`
@@ -87,7 +79,9 @@ const handleResponseChoices = (choices) => {
                 this.classList.remove("incorrect")
                 responsesWrapper.innerHTML = "" 
                 responsesWrapper.appendChild(hud)
-                displayQuestion(questions) 
+                // On affiche le loader avant que les données ne soient pas disponible
+                loader.style.display = "block"
+                getAPIQuestion()
                 // On met a jour le score et le nbre de question affiché depuis le début du jeu
                 let progressTextHTMLElement = document.getElementById("progressText")
                 progressTextHTMLElement.innerHTML = `Question ${numberOfDisplayedQuestion}/${maxQuestionNumber}`
@@ -103,7 +97,15 @@ const handleResponseChoices = (choices) => {
         })
     })
 }
-
+const getAPIQuestion = () => {
+    fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple").
+    then(response => response.json()).
+    then(APIResponse => {
+        questions = questionsContructor(APIResponse.results)
+        loader.style.display = "none"
+        displayQuestion(questions)
+    })
+}
 const questionsContructor = (datas) =>{
     let questions = []
     console.log(" constructor "+datas[0].category)
@@ -136,4 +138,4 @@ const questionsContructor = (datas) =>{
 //     console.log("hi updategame")
 //     scoreHTMLElement.innerHTML = score
 // }
-// displayQuestion(questions)
+getAPIQuestion()
