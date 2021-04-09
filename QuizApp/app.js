@@ -1,66 +1,11 @@
-// const questions = [
-//     {
-//         question: "Quel est le doctype d'un document HTML5 ?",
-//         responses: [
-//             {
-//                 name: "&lt;!DOCTYPE html5&gt;",
-//                 valid: "true"
-//             },
-//             {
-//                 name: "&lt;!DOCTYPE html&gt;",
-//                 valid: "false"
-//             },
-//             {
-//                 name: '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN"&gt;',
-//                 valid: "false"
-//             }
-//         ]
-//     },
-
-//     {
-//         question: "Quelle est la syntaxe pour déclarer l'encodage des caractères du document en UTF-8 ?",
-//         responses: [
-//             {
-//                 name: '&lt;meta encoding="text/html; charset=utf-8"&gt;',
-//                 valid: "false"
-//             },
-//             {
-//                 name: '&lt;meta charset="text/html; UTF-8"&gt;',
-//                 valid: "false"
-//             },
-//             {
-//                 name: '&lt;meta charset="utf-8"&gt;',
-//                 valid: "true"
-//             }
-//         ]
-//     },
-//     {
-//         question: "Quelle nouvelle balise de section permet de regrouper un contenu tangentiel au contenu principal du document ?",
-//         responses: [
-//             {
-//                 name: '&lt;section id="sidebar"&gt;',
-//                 valid: "false"
-//             },
-//             {
-//                 name: '&lt;sidebar&gt;',
-//                 valid: "false"
-//             },
-//             {
-//                 name: '&lt;aside&gt;',
-//                 valid: "true"
-//             },
-//             {
-//                 name: '&lt;details&gt;',
-//                 valid: "false"
-//             }
-//         ]
-//     }
-// ]
 let questions = null
-fetch("questions.json").
+fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple").
     then(response => response.json()).
-    then(questionsFromJSONFile => {
-        questions = questionsFromJSONFile
+    then(APIResponse => {
+        console.log(APIResponse)
+        questions = questionsContructor(APIResponse.results)
+        console.log(questions)
+        
         displayQuestion(questions)
     })
 
@@ -72,7 +17,7 @@ let numberOfDisplayedQuestion = 1
 let score = 0
 const displayQuestion = (questions) => {
     if(maxQuestionNumber >= numberOfDisplayedQuestion){
-        console.log("diplayed")
+        // console.log("diplayed")
         const questionIndex = Math.floor(Math.random() * questions.length)
         indexDisplayedQuestions.push(questionIndex)
         const questionToDisplay = questions[questionIndex]
@@ -87,6 +32,7 @@ const displayQuestion = (questions) => {
     
     
 }
+
 const createResponsesElements = (responses) =>{
     responses.forEach((response, index) => {
         // On créé la div qui contient les choix de reponse et leur ordre 
@@ -108,7 +54,6 @@ const createResponsesElements = (responses) =>{
     });
     
 }
-
 
 const handleResponseChoices = (choices) => {
     choices.forEach(choice =>{
@@ -157,6 +102,31 @@ const handleResponseChoices = (choices) => {
             
         })
     })
+}
+
+const questionsContructor = (datas) =>{
+    let questions = []
+    console.log(" constructor "+datas[0].category)
+    datas.forEach(data => {
+        let question = {
+            question: data.question,
+            responses: [
+                {
+                    name: data.correct_answer,
+                    valid: "true"
+                }
+            ]
+        }
+        data.incorrect_answers.forEach(in_correct => {
+            let incorrect_answer = {
+                name: in_correct,
+                valid: "false"
+            }
+            question.responses.push(incorrect_answer)
+        })
+        questions.push(question)
+    })
+    return questions
 }
 // const updateHeadGame = () => function(numberOfDisplayedQuestion, score){
 //     let questionCounterHTMLElement = document.getElementById("questionCounter")
