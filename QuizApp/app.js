@@ -60,7 +60,7 @@ const abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N
 const responsesWrapper = document.getElementById("game")
 let indexDisplayedQuestions = []
 const maxQuestionNumber = 3;
-let numberOfDisplayedQuestion = 0
+let numberOfDisplayedQuestion = 1
 let score = 0
 const displayQuestion = (questions) => {
     if(maxQuestionNumber >= numberOfDisplayedQuestion){
@@ -105,33 +105,44 @@ const createResponsesElements = (responses) =>{
 const handleResponseChoices = (choices) => {
     choices.forEach(choice =>{
         choice.addEventListener("click", function(){
+            if(numberOfDisplayedQuestion == maxQuestionNumber){
+                location.href ="./end.html"
+            }
             let hud = document.getElementById("hud").cloneNode(true);
             numberOfDisplayedQuestion = numberOfDisplayedQuestion + 1
            if(this.getAttribute("is-correct") === "true"){
                this.classList.add("correct")
                score += 5
+               localStorage.setItem("score", score)
                setTimeout(() => {
                 responsesWrapper.innerHTML = "" 
                 responsesWrapper.appendChild(hud)
                 displayQuestion(questions)  
                 // On met a jour le score et le nbre de question affiché depuis le début du jeu
-                let questionCounterHTMLElement = document.getElementById("questionCounter")
-                questionCounterHTMLElement.innerHTML = `${numberOfDisplayedQuestion}/${maxQuestionNumber}`
+                let progressTextHTMLElement = document.getElementById("progressText")
+                progressTextHTMLElement.innerHTML = `Question ${numberOfDisplayedQuestion}/${maxQuestionNumber}`
+                let progressBarFullHTMLElement = document.getElementById("progressBarFull")
+                let pourcentage = (numberOfDisplayedQuestion / maxQuestionNumber) * 100
+                progressBarFullHTMLElement.value = `${pourcentage}`
                 let scoreHTMLElement = document.getElementById("score")
                 scoreHTMLElement.innerHTML = score
                }, 1000)
            }else{
                this.classList.add("incorrect")
+               localStorage.setItem("score", score)
                setTimeout(() => {
                 this.classList.remove("incorrect")
                 responsesWrapper.innerHTML = "" 
                 responsesWrapper.appendChild(hud)
                 displayQuestion(questions) 
                 // On met a jour le score et le nbre de question affiché depuis le début du jeu
-                let questionCounterHTMLElement = document.getElementById("questionCounter")
-                questionCounterHTMLElement.innerHTML = `${numberOfDisplayedQuestion}/${maxQuestionNumber}`
+                let progressTextHTMLElement = document.getElementById("progressText")
+                progressTextHTMLElement.innerHTML = `Question ${numberOfDisplayedQuestion}/${maxQuestionNumber}`
+                let progressBarFullHTMLElement = document.getElementById("progressBarFull")
+                let pourcentage = (numberOfDisplayedQuestion / maxQuestionNumber) * 100
+                progressBarFullHTMLElement.value = `${pourcentage}`
                 let scoreHTMLElement = document.getElementById("score")
-                scoreHTMLElement.innerHTML = score 
+                scoreHTMLElement.innerHTML = score
                }, 1000)
            }
            
