@@ -5,28 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le math</title>
-  <link rel="stylesheet" href="css/teste.css">
+  <!-- <link rel="stylesheet" href="css/teste.css"> -->
   <style>
-    .container{
-      height: 100px;
-      border: 1px solid red;
+    
+    .header{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 200px;
+      width: 200px;
+      border: 1px solid lightblue;
+      transition: width .3s;
+      animation-name: identifier;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
     }
-    .child {
-      height: 50px;
-      border: 1px solid orange;
+    .header:hover{
+     width: 100px;
     }
+    @keyframes identifier {
+  0% { top: 0; left: 0; }
+  30% { top: 50px; width: 900px;}
+  68%, 72% { left: 50px; }
+  100% { top: 100px; left: 100%; }
+}
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>Logo</h1>
-  </div>
-  <div class="container">
-     <p class="child">neoud elements</p>
+    
   </div>
   <script>
-    let nav = window.navigator
-    console.log(nav.geolocation)
+    let header = document.querySelector(".header")
+    console.log(header.offsetTop)
     
   </script>
 </body>
