@@ -15,6 +15,10 @@ class Calculator{
         }
     }
 
+    static displayNomberInLocale(number){
+
+    }
+
    static buttonClickGestion() {
        const buttons = Array.prototype.slice.call(document.getElementsByTagName("button"))
        const previousOperand = document.querySelector(".previous-operand")
@@ -103,5 +107,6 @@ class Calculator{
         
 
     }
+
 }
 new Calculator()

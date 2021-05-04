@@ -1,0 +1,27 @@
+// Creation de notre object Vue qui prend en paramètre un objet javascript
+// la propriéte template rempresente le contenu de l'élément html auquel notre objet VueJs sera lié
+const app = Vue.createApp({
+    data(){
+        return {
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@gmail.com',
+            gender: 'male',
+            picture: 'https://randomuser.me/api/portraits/men/10.jpg'
+        }
+    },
+    methods: {
+        async getUser(){
+            const res = await fetch('https://randomuser.me/api')
+            const { results } = await res.json()
+            // console.log(results)
+            this.firstName = results[0].name.first
+            this.lastName = results[0].name.last
+            this.email = results[0].email
+            this.gender =  results[0].gender
+            this.picture = results[0].picture.large
+        }
+    }
+})
+// On lie VueJS à notre div#app
+app.mount("#app")
