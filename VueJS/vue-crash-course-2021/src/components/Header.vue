@@ -3,7 +3,8 @@
         <!-- <h1>Task tracker</h1> -->
         <h1>{{ title }}</h1>
         <Button
-        @="$emit('toggle-add-task')"
+        v-show="homePage"
+        @btn-click="$emit('toggle-add-task')"
         :text="showAddTask ? 'close' : 'add task'"
         :color="showAddTask ? 'red' : 'green'"/>
     </header>
@@ -16,6 +17,15 @@ export default {
   props: ['title', 'showAddTask'],
   components: {
     Button
+  },
+  computed: {
+    homePage () {
+      if (this.$route.path === '/') {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>

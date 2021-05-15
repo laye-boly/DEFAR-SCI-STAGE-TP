@@ -1,12 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Doctor Appointement",
-      "day": "March 1st at 2:30pm",
-      "reminde": true
-    },
-    {
       "id": 2,
       "text": "Meeting at school",
       "day": "March 3rd at 1:30pm",
@@ -16,7 +10,13 @@
       "id": 3,
       "text": "Food Shopping",
       "day": "March 3rd at 11:30pm",
-      "reminder": false
+      "reminder": true
+    },
+    {
+      "id": 29811,
+      "text": "dating with oumou",
+      "day": "14-21-2021",
+      "reminder": true
     }
   ]
 }
